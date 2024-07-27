@@ -5,6 +5,7 @@ realpath() {
   [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
 }
 
+echo "Docs Engine Version: 0.1.5"
 
 docs_engine_path=$(dirname $(dirname $(realpath "$0")))
 parent_path=$(dirname $docs_engine_path)
@@ -33,8 +34,8 @@ if [ "$1" = "ghactionsbootstrap" ]; then
   echo "Entering .docs"
   cd .docs
 
-  echo "Running npm install inside .docs"
-  npm install
+  echo "Running yarn install inside .docs"
+  yarn install --pure-lockfile
 fi
 
 
@@ -50,11 +51,11 @@ if [ "$1" = "bootstrap" ]; then
   echo "Entering .docs"
   cd .docs
 
-  echo "Removing existing node_modules (local npm link case)"
+  echo "Removing existing node_modules (local yarn link case)"
   rm -rf node_modules/
 
-  echo "Running npm install inside .docs"
-  npm install
+  echo "Running yarn install inside .docs"
+  yarn install --pure-lockfile
 fi
 
 
@@ -88,11 +89,11 @@ if [ "$1" = "develop" ]; then
   echo "Entering .docs"
   cd .docs
 
-  echo "Running npm run clean"
-  npm run clean
+  echo "Running yarn clean"
+  yarn clean
 
-  echo "Running npm run develop"
-  npm run develop -- "${@:2}"
+  echo "Running yarn develop"
+  yarn develop "${@:2}"
 fi
 
 
@@ -104,8 +105,8 @@ if [ "$1" = "build" ]; then
   echo "Entering .docs"
   cd .docs
 
-  echo "Running npm run build"
-  npm run build -- "${@:2}"
+  echo "Running yarn build"
+  yarn build "${@:2}"
 
   # We must run from inside `.docs/`
   echo "Running bin/postbuild.js"
@@ -119,8 +120,8 @@ if [ "$1" = "serve" ]; then
   echo "Entering .docs"
   cd .docs
 
-  echo "Running npm run serve"
-  npm run serve -- "${@:2}"
+  echo "Running yarn serve"
+  yarn serve "${@:2}"
 fi
 
 

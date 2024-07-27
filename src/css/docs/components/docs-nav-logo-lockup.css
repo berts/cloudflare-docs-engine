@@ -16,6 +16,12 @@
   color: var(--orange);
   margin-right: var(--gap);
   flex-shrink: 0;
+  fill: var(--orange);
+}
+
+/* When svg paths have gradiants this will override to just orange */ 
+.DocsNavLogoLockup--logo path {
+  fill: var(--orange);
 }
 
 .DocsNavLogoLockup--text {

@@ -14,6 +14,26 @@
   overflow: visible;
 }
 
+.DocsMarkdown .small-img {
+  max-width:242px;
+  margin-bottom: 1em;  
+}
+
+.DocsMarkdown .medium-img {
+  max-width:311px;
+  margin-bottom: 1em;
+}
+
+.DocsMarkdown .large-img {
+  max-width:450px;
+  margin-bottom: 1em;
+}
+
+.DocsMarkdown .full-img {
+  max-width:692px;
+  margin-bottom: 1em;
+}
+
 .DocsMarkdown--link {
   text-decoration: none;
   color: inherit;
@@ -763,6 +783,17 @@ blockquote .DocsMarkdown--header-anchor-positioner {
 
 .DocsMarkdown--table-wrap table {
   word-break: initial;
+}
+
+@media (hover: hover) {
+  .DocsMarkdown--table-wrap:hover {
+    width: calc(100% + var(--docs-body-sidebar-width));
+  }
+
+  .DocsMarkdown--table-wrap:hover table {
+    background-color: var(--background-color);
+    z-index: 1;
+  }
 }
 
 .DocsMarkdown--table-wrap tr > *:first-child {

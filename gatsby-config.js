@@ -1,5 +1,4 @@
 const docsConfig = require("./docs-config.js")
-
 const isProduction = process.env.NODE_ENV === "production"
 
 const getProduct = (name) => {
@@ -13,26 +12,33 @@ const products = [
   "access",
   "analytics",
   "api",
+  "automatic-platform-optimization",
   "argo-tunnel",
   "bots",
   "byoip",
+  "cache",
+  "client-ip-geolocation",
   "cloudflare-for-teams",
   "cloudflare-one",
   "distributed-web",
   "docs-engine",
   "events",
   "firewall",
+  "fundamentals",
   "gateway",
   "http3",
   "images",
-  "internet",
   "load-balancing",
   "logs",
   "magic-transit",
+  "magic-wan",
   "mobile-sdk",
   "network-interconnect",
+  "page-shield",
+  "railgun",
   "randomness-beacon",
   "registrar",
+  "rules",
   "spectrum",
   "ssl",
   "stream",
@@ -45,17 +51,16 @@ const products = [
   "workers",
 ]
 
+// TODO: Delete later
 const productIcons = {}
 products.forEach(name => {
   productIcons[name] = require(getProduct(name)).pathD
 })
 
-if (docsConfig.productLogoPathD && docsConfig.productIconKey) {
-  return Error("Set either `productLogoPathD` or `productIconKey` in docs-config.js, not both")
-}
 
-if (docsConfig.productIconKey) {
-  docsConfig.productLogoPathD = productIcons[docsConfig.productIconKey]
+// TODO: Delete later on, This is to support some cases when the pathD is directly added in the docs-config manually in the product instead of getting the icon from the cloudflare-brand-assets repo
+if (docsConfig.productIconKey && !docsConfig.productLogoPathD) {
+  docsConfig.productLogoPathD = productIcons.productIconKey ? productIcons[docsConfig.productIconKey] : ''
 }
 
 const siteMetadata = docsConfig.siteMetadata
@@ -65,6 +70,7 @@ Object.keys(docsConfig).forEach(prop => {
   siteMetadata.cloudflareDocs[prop] = docsConfig[prop]
 })
 
+// TODO: Delete later on
 siteMetadata.cloudflareDocs.productIcons = productIcons
 
 // We exposed friendlier siteMetadata.url to Docs consumers but
@@ -152,5 +158,13 @@ module.exports = {
     // Consider enabling for PWA + offline functionality
     // https://gatsby.dev/offline
     // 'gatsby-plugin-offline',
+    {
+      resolve: "gatsby-plugin-google-tagmanager",
+      options: {
+        id: "GTM-PKQFGQB",
+        dataLayerName: "cfDataLayer",
+        selfHostedOrigin: "https://tr.www.cloudflare.com"
+      },
+    },
   ],
 }

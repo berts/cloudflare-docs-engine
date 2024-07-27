@@ -18,7 +18,9 @@ export default () => {
             cloudflareDocs {
               pathPrefix
               product
+              productIconKey
               productLogoPathD
+              logoSVGContent
               contentRepo
               contentRepoFolder
               externalLinks {
